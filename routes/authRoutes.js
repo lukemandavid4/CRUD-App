@@ -1,11 +1,13 @@
 const express = require(`express`)
-const router = require(`express`).Router()
+const router = express.Router()
 const Product = require(`../models/productsSchema`)
+const { getProduct, getProductOne, postProduct, updateProduct } = require("../controllers/authController")
 
-router.get(`/`)
-router.get(`/:id`)
-router.post(`/`)
-router.put(`/:id`)
+
+router.get(`/`, getProduct)
+router.get(`/:id`, getProductOne)
+router.post(`/`, postProduct)
+router.put(`/:id`, updateProduct)
 router.delete(`/:id`)
 
-module.exports = authRoutes
+module.exports = router
