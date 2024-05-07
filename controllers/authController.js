@@ -34,7 +34,7 @@ const postProduct = async (req, res) =>{
 const updateProduct = async (req, res) =>{
   try {
     const {id} = req.params
-    const product = await Product.findByIdAndUpdate(id)
+    const product = await Product.findByIdAndUpdate(id, req.body)
     if(!product){
       res.status(404).send({message: "Product not found"})
     }
@@ -43,4 +43,17 @@ const updateProduct = async (req, res) =>{
     res.status(500).send({message: error.message})
   }
 }
-module.exports = {getProduct, getProductOne, postProduct, updateProduct}
+
+const deleteProduct = async (req, res) =>{
+  try {
+    const {id} = req.params
+    const product = await Product.findByIdAndDelete(id, req.body)
+    if(!product){
+      res.status(404).send({message: "Product not found"})
+    }
+    res.status(200).json(product)
+  } catch (error) {
+    res.status(500).send({message: error.message})
+  }
+}
+module.exports = {getProduct, getProductOne, postProduct, updateProduct, deleteProduct}
